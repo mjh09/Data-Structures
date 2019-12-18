@@ -48,20 +48,20 @@ class LRUCache:
         
         # check if key in cache
         if key in self.storage:
-            node = self.storage(key)
-            node.value == (key, value)
+            node = self.storage[key]
+            node.value = (key, value)
             self.order.move_to_end(node)
             return
         
         
         # if in cache, move to front, update value, else 
         if self.size == self.limit:
-            del self.storage(self.order.head.value[0])
+            del self.storage[self.order.head.value[0]]
             self.order.remove_from_head()
             self.size -= 1
 
 
         # add to the front, tail as most recent, head is oldest
         self.order.add_to_tail((key,value))
-        self.storage(key) = self.order.tail
+        self.storage[key] = self.order.tail
         self.size += 1
